@@ -729,11 +729,16 @@ function getNextRank(xp) { for(const r of RANKS){if(xp<r.xp)return r;} return nu
 
 function calcWorkoutXP() {
   let xp=0;
-  const sorted=[...history].reverse();
+  const sorted=[...history].reverse(); // oldest first
   sorted.forEach((h,i)=>{
     xp+=(h.doneSets||0)*10;
     if(h.doneSets>0&&h.doneSets===h.totalSets) xp+=50;
-    if(i>0){const diff=Math.floor((new Date(h.ts)-new Date(sorted[i-1].ts))/86400000);if(diff<=1)xp+=100;}
+    if(i>0){
+      const prevDate=new Date(sorted[i-1].ts).toDateString();
+      const currDate=new Date(h.ts).toDateString();
+      const diff=Math.round(Math.abs(new Date(currDate)-new Date(prevDate))/86400000);
+      if(diff<=1&&currDate!==prevDate) xp+=100;
+    }
   });
   return xp;
 }
@@ -942,9 +947,10 @@ function toggleHabit(hid) {
   if(!was&&h){
     const xp=diffXP(h.diff);
     showToast(`+${xp} XP — ${h.name}!`);
-    buildRankCard();
   }
   buildHabits();
+  buildRankCard();
+  buildHomePage();
 }
 
 function deleteHabit(hid) {
@@ -997,7 +1003,18 @@ function getQuestProgress(quest) {
     case 'workouts': return Math.min(quest.target,weekHistory.length);
     case 'sets': return Math.min(quest.target,weekHistory.reduce((a,h)=>a+(h.doneSets||0),0));
     case 'perfect': return Math.min(quest.target,weekHistory.filter(h=>h.doneSets===h.totalSets&&h.totalSets>0).length);
-    case 'habitdays': return Math.min(quest.target,countHabitDaysThisWeek());
+    case 'habitdays': {
+      // count days this week where at least one habit was completed
+      const logs=habitData.logs||{};
+      const habits=getHabits();
+      const weekStart=Date.now()-7*86400000;
+      let days=0;
+      Object.entries(logs).forEach(([dk,log])=>{
+        if(new Date(dk)<weekStart)return;
+        if(habits.some(h=>log[h.id]))days++;
+      });
+      return Math.min(quest.target,days);
+    }
     case 'totalworkouts': return Math.min(quest.target,history.length);
     case 'workoutstreak': return Math.min(quest.target,getStreak());
     case 'habitstreak':{
@@ -1012,18 +1029,28 @@ function getQuestProgress(quest) {
 }
 
 function claimQuest(qid, xp) {
-  questData[qid]={claimed:true,xp,ts:Date.now()};
-  save(); buildQuests(); buildRankCard();
+  const week=Math.floor(Date.now()/(7*86400000));
+  questData[qid]={claimed:true,xp,ts:Date.now(),week};
+  save(); buildQuests(); buildRankCard(); buildHomePage();
   showToast(`+${xp} XP — Quest complete! 🏆`);
+}
+
+function calcQuestXP() {
+  // Count ALL claimed quests lifetime (quests are one-time milestones or weekly)
+  let xp=0;
+  Object.values(questData).forEach(q=>{ if(q.claimed) xp+=q.xp; });
+  return xp;
 }
 
 function buildQuests() {
   const quests=getWeeklyQuests();
+  const currentWeek=Math.floor(Date.now()/(7*86400000));
   const list=document.getElementById('quests-list'); list.innerHTML='';
   quests.forEach(q=>{
     const prog=getQuestProgress(q);
     const pct=Math.round((prog/q.target)*100);
-    const claimed=!!(questData[q.id]?.claimed);
+    // Only consider claimed if claimed THIS week
+    const claimed=!!(questData[q.id]?.claimed && questData[q.id]?.week===currentWeek);
     const complete=prog>=q.target;
     const card=document.createElement('div');
     card.className='quest-card'+(claimed?' quest-done':'');
@@ -1116,7 +1143,7 @@ function saveWorkout() {
   const doneSets=exercises.reduce((a,e)=>a+e.sets.filter(s=>s.done).length,0);
   const xpBefore=calcTotalXP();
   history.unshift({ts:Date.now(),date:new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}),dayId:currentDay,dayLabel:day.label,exercises,doneSets,totalSets});
-  if(history.length>100)history=history.slice(0,100);
+  if(history.length>500)history=history.slice(0,500);
   day.exercises.forEach((ex,ei)=>{for(let si=0;si<ex.sets;si++){['w','r','c'].forEach(f=>delete liveData[key(currentDay,ei,si,f)]);} });
   save();
   const xpAfter=calcTotalXP();
