@@ -296,6 +296,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .move-btns{display:flex;gap:3px;margin-left:3px}
 .move-btn{width:26px;height:26px;background:var(--bg4);border:1px solid var(--border);border-radius:7px;color:var(--text3);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
+/* Day management */
+.edit-day-mgmt{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.add-day-btn{flex:1;padding:8px 10px;background:var(--accent-dim);border:1px dashed rgba(124,111,205,0.3);border-radius:10px;color:var(--accent2);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
+.del-day-btn{padding:8px 12px;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:10px;color:var(--red);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
+.rest-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);margin-bottom:14px}
+.rest-toggle-info{flex:1}
+.rest-toggle-label{font-size:14px;color:var(--text2);font-weight:500}
+.rest-toggle-sub{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:2px}
+
 /* Backup section */
 .backup-section{padding:14px 14px 24px}
 .backup-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:10px}
@@ -392,6 +401,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   <!-- EDIT PAGE -->
   <div class="page" id="page-edit">
     <div class="edit-day-tabs" id="edit-day-tabs"></div>
+    <div class="edit-day-mgmt">
+      <button class="add-day-btn" onclick="addDay()">+ Add day</button>
+      <button class="del-day-btn" onclick="deleteDay()">Remove day</button>
+    </div>
     <div class="page-inner" id="edit-container"></div>
   </div>
   <div id="edit-bottom" style="display:none">
@@ -1160,21 +1173,85 @@ function buildEditDayTabs(){
 function buildEditExercises(){
   if(!editDraft)editDraft=JSON.parse(JSON.stringify(getActivePlan()));
   const draftDay=editDraft.find(d=>d.id===editDayId);
+  if(!draftDay)return;
   const c=document.getElementById('edit-container');c.innerHTML='';
+  const isRest=draftDay.exercises.length===1&&draftDay.exercises[0].rest;
+
+  // Day name
   const nw=document.createElement('div');
-  nw.innerHTML=`<div class="edit-label">Day name</div><input class="edit-input" type="text" value="${draftDay.label}" oninput="editDraft.find(d=>d.id==='${editDayId}').label=this.value" style="margin-bottom:16px">`;
+  nw.innerHTML=`<div class="edit-label">Day name</div><input class="edit-input" type="text" value="${draftDay.label}" oninput="editDraft.find(d=>d.id==='${editDayId}').label=this.value;document.querySelectorAll('.edit-day-tab').forEach((t,i)=>{if(editDraft[i])t.textContent=editDraft[i].label})" style="margin-bottom:14px">`;
   c.appendChild(nw);
-  const el=document.createElement('div');el.className='edit-label';el.style.marginTop='4px';el.textContent='Exercises';c.appendChild(el);
-  draftDay.exercises.forEach((ex,ei)=>{
-    const card=document.createElement('div');card.className='edit-ex-card';card.id=`edit-ex-${ei}`;
-    card.innerHTML=`<div class="edit-ex-head" onclick="toggleEditCard(${ei})"><div class="edit-ex-name">${ex.name}</div><div class="edit-ex-meta">${ex.sets}×${ex.range}</div><div class="move-btns"><button class="move-btn" onclick="event.stopPropagation();moveEx(${ei},-1)">↑</button><button class="move-btn" onclick="event.stopPropagation();moveEx(${ei},1)">↓</button></div><svg class="edit-ex-chevron" style="margin-left:4px" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="edit-ex-body"><div class="edit-label" style="margin-top:10px">Exercise name</div><input class="edit-input" type="text" value="${ex.name}" oninput="updateExField('${editDayId}',${ei},'name',this.value)"><div class="edit-field-row"><div class="edit-field"><div class="edit-label">Sets</div><input class="edit-small-input" type="number" min="1" max="10" value="${ex.sets}" oninput="updateExField('${editDayId}',${ei},'sets',parseInt(this.value)||1)"></div><div class="edit-field"><div class="edit-label">Rep range</div><input class="edit-small-input" type="text" value="${ex.range}" oninput="updateExField('${editDayId}',${ei},'range',this.value)"></div></div><div class="edit-goal-row"><span class="edit-goal-label">⭐ Goal lift</span><div class="toggle${ex.goal?' on':''}" id="toggle-${ei}" onclick="toggleGoal('${editDayId}',${ei},this)"><div class="toggle-knob"></div></div></div><button class="edit-del-btn" onclick="deleteEx('${editDayId}',${ei})">Remove exercise</button></div>`;
-    c.appendChild(card);
-  });
-  const add=document.createElement('button');add.className='add-ex-btn';add.textContent='+ Add exercise';add.onclick=addExercise;c.appendChild(add);
+
+  // Rest day toggle
+  const rt=document.createElement('div');
+  rt.className='rest-toggle-row';
+  rt.innerHTML=`<div class="rest-toggle-info"><div class="rest-toggle-label">Rest day</div><div class="rest-toggle-sub">No exercises — recovery only</div></div><div class="toggle${isRest?' on':''}" id="rest-toggle" onclick="toggleRestDay(this)"><div class="toggle-knob"></div></div>`;
+  c.appendChild(rt);
+
+  if(!isRest){
+    const el=document.createElement('div');el.className='edit-label';el.textContent='Exercises';c.appendChild(el);
+    draftDay.exercises.forEach((ex,ei)=>{
+      const card=document.createElement('div');card.className='edit-ex-card';card.id=`edit-ex-${ei}`;
+      card.innerHTML=`<div class="edit-ex-head" onclick="toggleEditCard(${ei})"><div class="edit-ex-name">${ex.name}</div><div class="edit-ex-meta">${ex.sets}×${ex.range}</div><div class="move-btns"><button class="move-btn" onclick="event.stopPropagation();moveEx(${ei},-1)">↑</button><button class="move-btn" onclick="event.stopPropagation();moveEx(${ei},1)">↓</button></div><svg class="edit-ex-chevron" style="margin-left:4px" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="edit-ex-body"><div class="edit-label" style="margin-top:10px">Exercise name</div><input class="edit-input" type="text" value="${ex.name}" oninput="updateExField('${editDayId}',${ei},'name',this.value)"><div class="edit-field-row"><div class="edit-field"><div class="edit-label">Sets</div><input class="edit-small-input" type="number" min="1" max="10" value="${ex.sets}" oninput="updateExField('${editDayId}',${ei},'sets',parseInt(this.value)||1)"></div><div class="edit-field"><div class="edit-label">Rep range</div><input class="edit-small-input" type="text" value="${ex.range}" oninput="updateExField('${editDayId}',${ei},'range',this.value)"></div></div><div class="edit-goal-row"><span class="edit-goal-label">⭐ Goal lift</span><div class="toggle${ex.goal?' on':''}" id="toggle-${ei}" onclick="toggleGoal('${editDayId}',${ei},this)"><div class="toggle-knob"></div></div></div><button class="edit-del-btn" onclick="deleteEx('${editDayId}',${ei})">Remove exercise</button></div>`;
+      c.appendChild(card);
+    });
+    const add=document.createElement('button');add.className='add-ex-btn';add.textContent='+ Add exercise';add.onclick=addExercise;c.appendChild(add);
+  }
+}
+
+function toggleRestDay(btn){
+  if(!editDraft)return;
+  const d=editDraft.find(d=>d.id===editDayId);
+  if(!d)return;
+  const isRest=d.exercises.length===1&&d.exercises[0].rest;
+  if(isRest){
+    // Switch to workout day
+    d.exercises=[{name:'New exercise',sets:3,range:'8–12',goal:false}];
+  } else {
+    // Switch to rest day
+    d.exercises=[{name:'Rest day',sets:0,range:'',rest:true}];
+  }
+  buildEditExercises();
+}
+
+function addDay(){
+  if(!editDraft)editDraft=JSON.parse(JSON.stringify(getActivePlan()));
+  if(editDraft.length>=7){showToast('Max 7 days reached');return;}
+  const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const newId='day'+Date.now();
+  editDraft.push({id:newId,label:dayNames[editDraft.length]||'Day '+(editDraft.length+1),exercises:[{name:'New exercise',sets:3,range:'8–12',goal:false}]});
+  editDayId=newId;
+  buildEditDayTabs();
+  buildEditExercises();
+}
+
+function deleteDay(){
+  if(!editDraft)return;
+  if(editDraft.length<=1){showToast('Need at least 1 day');return;}
+  if(!confirm(`Remove "${editDraft.find(d=>d.id===editDayId)?.label}"?`))return;
+  const idx=editDraft.findIndex(d=>d.id===editDayId);
+  editDraft.splice(idx,1);
+  editDayId=editDraft[Math.max(0,idx-1)].id;
+  buildEditDayTabs();
+  buildEditExercises();
 }
 
 function toggleEditCard(ei){const c=document.getElementById(`edit-ex-${ei}`);if(c)c.classList.toggle('open');}
-function updateExField(dayId,ei,field,value){if(!editDraft)return;const d=editDraft.find(d=>d.id===dayId);if(d&&d.exercises[ei])d.exercises[ei][field]=value;}
+function updateExField(dayId,ei,field,value){
+  if(!editDraft)return;
+  const d=editDraft.find(d=>d.id===dayId);
+  if(d&&d.exercises[ei]){
+    d.exercises[ei][field]=value;
+    // Update the card header live so name/sets/range reflect instantly
+    const card=document.getElementById(`edit-ex-${ei}`);
+    if(card){
+      const nameEl=card.querySelector('.edit-ex-name');
+      const metaEl=card.querySelector('.edit-ex-meta');
+      if(nameEl)nameEl.textContent=d.exercises[ei].name;
+      if(metaEl)metaEl.textContent=`${d.exercises[ei].sets}×${d.exercises[ei].range}`;
+    }
+  }
+}
 function toggleGoal(dayId,ei,btn){if(!editDraft)return;const d=editDraft.find(d=>d.id===dayId);if(!d)return;d.exercises[ei].goal=!d.exercises[ei].goal;btn.classList.toggle('on',d.exercises[ei].goal);}
 function deleteEx(dayId,ei){if(!editDraft)return;const d=editDraft.find(d=>d.id===dayId);if(!d)return;if(d.exercises.length<=1){showToast('Need at least 1 exercise');return;}d.exercises.splice(ei,1);buildEditExercises();}
 function moveEx(ei,dir){if(!editDraft)return;const d=editDraft.find(d=>d.id===editDayId);if(!d)return;const ni=ei+dir;if(ni<0||ni>=d.exercises.length)return;[d.exercises[ei],d.exercises[ni]]=[d.exercises[ni],d.exercises[ei]];buildEditExercises();}
@@ -1288,7 +1365,7 @@ function showPage(page,btn){
   if(page==='history')buildHistory();
   if(page==='progress')buildProgress();
   if(page==='habits'){buildHabits();buildQuests();}
-  if(page==='edit'){editDraft=JSON.parse(JSON.stringify(getActivePlan()));buildEditDayTabs();buildEditExercises();}
+  if(page==='edit'){if(!editDraft)editDraft=JSON.parse(JSON.stringify(getActivePlan()));buildEditDayTabs();buildEditExercises();}
   if(page==='backup')buildBackupPage();
 }
 
