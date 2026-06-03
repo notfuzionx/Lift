@@ -174,6 +174,43 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 input[type=number]{appearance:none;-moz-appearance:textfield}
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* Edit page */
+.edit-day-tabs{display:flex;gap:6px;overflow-x:auto;padding:14px 16px;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border)}
+.edit-day-tabs::-webkit-scrollbar{display:none}
+.edit-day-tab{flex-shrink:0;padding:7px 14px;border-radius:30px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
+.edit-day-tab.active{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+.edit-day-name-row{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.edit-label{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.edit-input{width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;color:var(--text)}
+.edit-input:focus{outline:none;border-color:var(--accent)}
+.edit-ex-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;margin-bottom:8px;overflow:hidden}
+.edit-ex-head{display:flex;align-items:center;gap:8px;padding:12px 14px;cursor:pointer}
+.edit-ex-name{flex:1;font-size:13px;font-weight:500}
+.edit-ex-meta{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+.edit-ex-body{display:none;padding:0 14px 12px;border-top:1px solid var(--border)}
+.edit-ex-card.open .edit-ex-body{display:block}
+.edit-ex-card.open .edit-ex-chevron{transform:rotate(180deg)}
+.edit-ex-chevron{width:14px;height:14px;stroke:var(--text3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s;flex-shrink:0}
+.edit-field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.edit-field{display:flex;flex-direction:column;gap:4px}
+.edit-small-input{background:var(--bg4);border:1px solid var(--border2);border-radius:10px;padding:8px 10px;font-size:14px;font-family:'DM Mono',monospace;color:var(--text);width:100%}
+.edit-small-input:focus{outline:none;border-color:var(--accent)}
+.edit-goal-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.edit-goal-label{font-size:13px;color:var(--text2)}
+.toggle{width:44px;height:26px;background:var(--bg4);border-radius:13px;border:1px solid var(--border2);cursor:pointer;position:relative;transition:background .2s}
+.toggle.on{background:var(--accent)}
+.toggle-knob{width:20px;height:20px;background:var(--text3);border-radius:50%;position:absolute;top:2px;left:2px;transition:all .2s}
+.toggle.on .toggle-knob{left:20px;background:var(--accent-text)}
+.edit-del-btn{width:100%;padding:10px;background:transparent;border:1px solid rgba(255,77,77,.3);border-radius:10px;color:var(--red);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:10px;transition:background .15s}
+.edit-del-btn:active{background:rgba(255,77,77,.1)}
+.add-ex-btn{width:100%;padding:12px;background:var(--bg3);border:1px dashed var(--border2);border-radius:14px;color:var(--text2);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:4px;transition:all .15s}
+.add-ex-btn:active{background:var(--bg4)}
+.edit-save-bar{padding:12px 16px;background:var(--bg);border-top:1px solid var(--border)}
+.edit-save-btn{width:100%;padding:13px;background:var(--accent);border:none;border-radius:14px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--accent-text);cursor:pointer}
+.move-btns{display:flex;gap:4px;margin-left:4px}
+.move-btn{width:28px;height:28px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--text3);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.move-btn:active{background:var(--bg3)}
 </style>
 </head>
 <body>
@@ -284,6 +321,17 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     </div>
   </div>
 
+  <!-- Edit page -->
+  <div class="page" id="page-edit">
+    <div class="edit-day-tabs" id="edit-day-tabs"></div>
+    <div class="page-inner" id="edit-container"></div>
+  </div>
+  <div id="edit-bottom" style="display:none">
+    <div class="edit-save-bar">
+      <button class="edit-save-btn" onclick="saveEdits()">Save changes</button>
+    </div>
+  </div>
+
   <!-- Bottom nav -->
   <nav class="nav">
     <button class="nav-btn active" onclick="showPage('log',this)" aria-label="Log">
@@ -302,6 +350,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l-3 3"/></svg>
       History
     </button>
+    <button class="nav-btn" onclick="showPage('edit',this)" aria-label="Edit">
+      <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Edit
+    </button>
   </nav>
 </div>
 
@@ -309,69 +361,70 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 <script>
 const DAYS = [
-  {id:'pushA',label:'Push A',exercises:[
+  {id:'pushA',label:'Mon · Push A',exercises:[
     {name:'Incline Dumbbell Press',sets:3,range:'6–10',goal:true},
-    {name:'Flat Bench Press',sets:3,range:'5–8',goal:true},
+    {name:'Machine Chest Press',sets:2,range:'8–12'},
     {name:'Cable Fly',sets:2,range:'12–15'},
-    {name:'Dumbbell Lateral Raise',sets:4,range:'10–15',goal:true},
-    {name:'Rope Pushdown',sets:3,range:'10–15'},
-    {name:'Cable Crunch',sets:3,range:'12–15'}
+    {name:'Standing Barbell OHP',sets:4,range:'6–10',goal:true},
+    {name:'Dumbbell Lateral Raise',sets:5,range:'12–20',goal:true},
+    {name:'Overhead Tricep Extension',sets:3,range:'10–15'},
+    {name:'Tricep Pushdown',sets:3,range:'10–15'}
   ]},
-  {id:'pullA',label:'Pull A',exercises:[
+  {id:'pullA',label:'Tue · Pull A',exercises:[
     {name:'Lat Pulldown',sets:4,range:'8–12',goal:true},
-    {name:'Chest-Supported Row',sets:3,range:'8–12'},
-    {name:'Incline Dumbbell Curl',sets:3,range:'8–12'},
-    {name:'Hammer Curl',sets:2,range:'10–12'},
-    {name:'Neck Flexion',sets:2,range:'20'},
-    {name:'Neck Extension',sets:2,range:'20'}
-  ]},
-  {id:'legsA',label:'Legs A',exercises:[
-    {name:'Back Squat',sets:3,range:'5–8',goal:true},
-    {name:'Leg Extension',sets:3,range:'10–15'},
-    {name:'Romanian Deadlift',sets:3,range:'8–10'},
-    {name:'Leg Curl',sets:3,range:'10–15'},
-    {name:'Standing Calf Raise',sets:3,range:'12–20'},
-    {name:'Hanging Leg Raise',sets:3,range:'12–15'}
-  ]},
-  {id:'pushB',label:'Push B',exercises:[
-    {name:'Incline Dumbbell Press',sets:3,range:'8–12',goal:true},
-    {name:'Incline Barbell Press',sets:3,range:'6–10'},
-    {name:'Machine Chest Press',sets:2,range:'10–12'},
-    {name:'Dumbbell Lateral Raise',sets:4,range:'10–15',goal:true},
+    {name:'Cable Row',sets:3,range:'8–12'},
     {name:'Reverse Pec Deck',sets:3,range:'12–15'},
-    {name:'Overhead Tricep Extension',sets:3,range:'10–15'}
+    {name:'Preacher Curl',sets:3,range:'8–12'},
+    {name:'Hammer Curl',sets:3,range:'10–15'}
   ]},
-  {id:'pullB',label:'Pull B',exercises:[
-    {name:'Lat Pulldown',sets:4,range:'8–12',goal:true},
-    {name:'Chest-Supported Row',sets:3,range:'8–12'},
-    {name:'Bayesian Curl',sets:3,range:'10–12'},
-    {name:'Hammer Curl',sets:3,range:'10–12'},
-    {name:'Dumbbell Shrugs',sets:3,range:'10–15'},
-    {name:'Neck Flexion',sets:2,range:'20'},
-    {name:'Neck Extension',sets:2,range:'20'}
-  ]},
-  {id:'legsB',label:'Legs B',exercises:[
-    {name:'Hack Squat / Leg Press',sets:3,range:'8–12'},
-    {name:'Leg Extension',sets:3,range:'10–15'},
-    {name:'Romanian Deadlift',sets:3,range:'8–10'},
+  {id:'legs',label:'Wed · Legs',exercises:[
+    {name:'Leg Press',sets:4,range:'8–12'},
+    {name:'Leg Extension',sets:5,range:'12–15'},
     {name:'Leg Curl',sets:3,range:'10–15'},
-    {name:'Seated Calf Raise',sets:3,range:'12–20'},
-    {name:'Cable Crunch',sets:3,range:'12–15'},
-    {name:'Ab Wheel',sets:3,range:'10–15'}
+    {name:'Standing Calf Raise',sets:4,range:'10–20'},
+    {name:'Hanging Leg Raise',sets:3,range:'10–15'}
+  ]},
+  {id:'rest',label:'Thu · Rest',exercises:[
+    {name:'Rest day — recover & eat well',sets:0,range:'',rest:true}
+  ]},
+  {id:'upper',label:'Fri · Upper',exercises:[
+    {name:'Incline Bench Press',sets:3,range:'6–10',goal:true},
+    {name:'Pull-Ups',sets:3,range:'6–10'},
+    {name:'Seated Cable Row',sets:3,range:'8–12'},
+    {name:'Standing Barbell OHP',sets:3,range:'5–8',goal:true},
+    {name:'Dumbbell Lateral Raise',sets:3,range:'12–20',goal:true},
+    {name:'Face Pulls',sets:3,range:'15–20'},
+    {name:'Preacher Curl',sets:3,range:'8–12'},
+    {name:'Tricep Pushdown',sets:3,range:'10–15'}
+  ]},
+  {id:'lower',label:'Sat · Lower',exercises:[
+    {name:'Romanian Deadlift',sets:4,range:'6–10'},
+    {name:'Hip Thrust',sets:3,range:'8–12'},
+    {name:'Seated Leg Curl',sets:3,range:'10–15'},
+    {name:'Standing Calf Raise',sets:4,range:'10–20'},
+    {name:'Cable Crunch',sets:3,range:'12–20'}
   ]}
 ];
 
-const GOALS = ['Incline Dumbbell Press','Flat Bench Press','Lat Pulldown','Dumbbell Lateral Raise','Back Squat'];
+const GOALS = ['Incline Dumbbell Press','Standing Barbell OHP','Dumbbell Lateral Raise','Lat Pulldown','Incline Bench Press'];
 
 let currentDay = 'pushA';
 let liveData = {};
 let history = [];
 let nutrition = {};
+let customPlan = null; // user-edited plan
+let editDayId = null;
+let editDraft = null; // deep copy being edited
+
+function getActivePlan() {
+  return customPlan || DAYS;
+}
 
 function load() {
   try { history = JSON.parse(localStorage.getItem('lw_history') || '[]'); } catch(e) { history = []; }
   try { nutrition = JSON.parse(localStorage.getItem('lw_nutrition') || '{}'); } catch(e) { nutrition = {}; }
   try { liveData = JSON.parse(localStorage.getItem('lw_live') || '{}'); } catch(e) { liveData = {}; }
+  try { const cp = localStorage.getItem('lw_plan'); if(cp) customPlan = JSON.parse(cp); } catch(e) {}
 }
 
 function save() {
@@ -379,6 +432,7 @@ function save() {
     localStorage.setItem('lw_history', JSON.stringify(history));
     localStorage.setItem('lw_nutrition', JSON.stringify(nutrition));
     localStorage.setItem('lw_live', JSON.stringify(liveData));
+    if (customPlan) localStorage.setItem('lw_plan', JSON.stringify(customPlan));
   } catch(e) {}
 }
 
@@ -429,7 +483,7 @@ function getStreak() {
 function buildDayStrip() {
   const strip = document.getElementById('day-strip');
   strip.innerHTML = '';
-  DAYS.forEach(d => {
+  getActivePlan().forEach(d => {
     const btn = document.createElement('button');
     btn.className = 'day-pill' + (d.id === currentDay ? ' active' : '');
     btn.textContent = d.label;
@@ -439,9 +493,15 @@ function buildDayStrip() {
 }
 
 function buildExercises() {
-  const day = DAYS.find(d => d.id === currentDay);
+  const day = getActivePlan().find(d => d.id === currentDay);
   const container = document.getElementById('exercises-container');
   container.innerHTML = '';
+
+  // Rest day
+  if (day.exercises.length === 1 && day.exercises[0].rest) {
+    container.innerHTML = `<div style="text-align:center;padding:48px 24px"><div style="font-size:40px;margin-bottom:12px">😴</div><div style="font-size:18px;font-weight:600;margin-bottom:8px">Rest Day</div><div style="font-size:14px;color:var(--text2);line-height:1.6">Recover, eat well, and get ready<br>for tomorrow's session.</div></div>`;
+    return;
+  }
   day.exercises.forEach((ex, ei) => {
     const lastSets = getLastSession(ex.name, currentDay);
     const card = document.createElement('div');
@@ -524,7 +584,7 @@ function toggleCheck(btn, ei) {
 }
 
 function saveWorkout() {
-  const day = DAYS.find(d => d.id === currentDay);
+  const day = getActivePlan().find(d => d.id === currentDay);
   const exercises = day.exercises.map((ex, ei) => {
     const sets = [];
     for (let si = 0; si < ex.sets; si++) {
@@ -767,6 +827,156 @@ function exportAllHistory() {
   showToast('Full history saved!');
 }
 
+// ── Edit plan ────────────────────────────────────────
+function buildEditDayTabs() {
+  const plan = getActivePlan();
+  if (!editDayId) editDayId = plan[0].id;
+  const tabs = document.getElementById('edit-day-tabs');
+  tabs.innerHTML = '';
+  plan.forEach(d => {
+    const btn = document.createElement('button');
+    btn.className = 'edit-day-tab' + (d.id === editDayId ? ' active' : '');
+    btn.textContent = d.label;
+    btn.onclick = () => { editDayId = d.id; buildEditDayTabs(); buildEditExercises(); };
+    tabs.appendChild(btn);
+  });
+}
+
+function buildEditExercises() {
+  const plan = getActivePlan();
+  const day = plan.find(d => d.id === editDayId);
+  if (!day) return;
+  // Work on a live draft stored in editDraft
+  if (!editDraft) editDraft = JSON.parse(JSON.stringify(plan));
+  const draftDay = editDraft.find(d => d.id === editDayId);
+  const container = document.getElementById('edit-container');
+  container.innerHTML = '';
+
+  // Day name
+  const nameWrap = document.createElement('div');
+  nameWrap.innerHTML = `
+    <div class="edit-label">Day name</div>
+    <input class="edit-input" type="text" value="${draftDay.label}" id="edit-day-label" oninput="editDraft.find(d=>d.id==='${editDayId}').label=this.value">
+  `;
+  container.appendChild(nameWrap);
+
+  const exLabel = document.createElement('div');
+  exLabel.className = 'edit-label';
+  exLabel.style.marginTop = '18px';
+  exLabel.textContent = 'Exercises';
+  container.appendChild(exLabel);
+
+  draftDay.exercises.forEach((ex, ei) => {
+    const card = document.createElement('div');
+    card.className = 'edit-ex-card';
+    card.id = `edit-ex-${ei}`;
+    card.innerHTML = `
+      <div class="edit-ex-head" onclick="toggleEditCard(${ei})">
+        <div class="edit-ex-name">${ex.name}</div>
+        <div class="edit-ex-meta">${ex.sets}×${ex.range}</div>
+        <div class="move-btns">
+          <button class="move-btn" onclick="event.stopPropagation();moveEx(${ei},-1)" title="Move up">↑</button>
+          <button class="move-btn" onclick="event.stopPropagation();moveEx(${ei},1)" title="Move down">↓</button>
+        </div>
+        <svg class="edit-ex-chevron" style="margin-left:4px" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="edit-ex-body">
+        <div class="edit-label" style="margin-top:10px">Exercise name</div>
+        <input class="edit-input" type="text" value="${ex.name}" oninput="updateExField('${editDayId}',${ei},'name',this.value)">
+        <div class="edit-field-row">
+          <div class="edit-field">
+            <div class="edit-label">Sets</div>
+            <input class="edit-small-input" type="number" min="1" max="10" value="${ex.sets}" oninput="updateExField('${editDayId}',${ei},'sets',parseInt(this.value)||1)">
+          </div>
+          <div class="edit-field">
+            <div class="edit-label">Rep range</div>
+            <input class="edit-small-input" type="text" value="${ex.range}" oninput="updateExField('${editDayId}',${ei},'range',this.value)">
+          </div>
+        </div>
+        <div class="edit-goal-row">
+          <span class="edit-goal-label">⭐ Goal lift (track PR)</span>
+          <div class="toggle${ex.goal?' on':''}" id="toggle-${ei}" onclick="toggleGoal('${editDayId}',${ei},this)">
+            <div class="toggle-knob"></div>
+          </div>
+        </div>
+        <button class="edit-del-btn" onclick="deleteEx('${editDayId}',${ei})">Remove exercise</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  const addBtn = document.createElement('button');
+  addBtn.className = 'add-ex-btn';
+  addBtn.textContent = '+ Add exercise';
+  addBtn.onclick = addExercise;
+  container.appendChild(addBtn);
+}
+
+function toggleEditCard(ei) {
+  const card = document.getElementById(`edit-ex-${ei}`);
+  if (card) card.classList.toggle('open');
+}
+
+function updateExField(dayId, ei, field, value) {
+  if (!editDraft) return;
+  const day = editDraft.find(d => d.id === dayId);
+  if (day && day.exercises[ei]) day.exercises[ei][field] = value;
+}
+
+function toggleGoal(dayId, ei, btn) {
+  if (!editDraft) return;
+  const day = editDraft.find(d => d.id === dayId);
+  if (!day) return;
+  day.exercises[ei].goal = !day.exercises[ei].goal;
+  btn.classList.toggle('on', day.exercises[ei].goal);
+}
+
+function deleteEx(dayId, ei) {
+  if (!editDraft) return;
+  const day = editDraft.find(d => d.id === dayId);
+  if (!day) return;
+  if (day.exercises.length <= 1) { showToast('Need at least 1 exercise'); return; }
+  day.exercises.splice(ei, 1);
+  buildEditExercises();
+}
+
+function moveEx(ei, dir) {
+  if (!editDraft) return;
+  const day = editDraft.find(d => d.id === editDayId);
+  if (!day) return;
+  const newIdx = ei + dir;
+  if (newIdx < 0 || newIdx >= day.exercises.length) return;
+  const tmp = day.exercises[ei];
+  day.exercises[ei] = day.exercises[newIdx];
+  day.exercises[newIdx] = tmp;
+  buildEditExercises();
+}
+
+function addExercise() {
+  if (!editDraft) return;
+  const day = editDraft.find(d => d.id === editDayId);
+  if (!day) return;
+  day.exercises.push({name: 'New exercise', sets: 3, range: '8–12', goal: false});
+  buildEditExercises();
+  // Auto-open last card
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.edit-ex-card');
+    if (cards.length) cards[cards.length-1].classList.add('open');
+    cards[cards.length-1].scrollIntoView({behavior:'smooth'});
+  }, 50);
+}
+
+function saveEdits() {
+  if (!editDraft) return;
+  customPlan = JSON.parse(JSON.stringify(editDraft));
+  editDraft = null;
+  save();
+  buildDayStrip();
+  buildExercises();
+  buildProgress();
+  showToast('Plan saved!');
+}
+
 // Navigation
 function showPage(page, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -774,9 +984,11 @@ function showPage(page, btn) {
   document.getElementById('page-'+page).classList.add('active');
   btn.classList.add('active');
   document.getElementById('log-bottom').style.display = page === 'log' ? 'block' : 'none';
+  document.getElementById('edit-bottom').style.display = page === 'edit' ? 'block' : 'none';
   if (page === 'nutrition') loadNutrition();
   if (page === 'history') buildHistory();
   if (page === 'progress') buildProgress();
+  if (page === 'edit') { editDraft = JSON.parse(JSON.stringify(getActivePlan())); buildEditDayTabs(); buildEditExercises(); }
 }
 
 function showToast(msg) {
