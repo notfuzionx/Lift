@@ -1,11 +1,11 @@
 {
-  "name": "Workout Tracker",
+  "name": "Lifts — Workout Tracker",
   "short_name": "Lifts",
-  "description": "Track your Push/Pull/Legs workouts",
+  "description": "Track your workouts, build streaks, and level up",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#0a0a0a",
+  "background_color": "#080810",
+  "theme_color": "#080810",
   "orientation": "portrait",
   "icons": [
     {
