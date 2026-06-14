@@ -75,13 +75,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .home-next-label{font-size:10px;font-family:'DM Mono',monospace;opacity:.4;text-transform:uppercase;letter-spacing:.4px}
 .home-next-name{font-size:15px;font-weight:700;margin-top:2px}
 .home-next-xp{font-size:11px;font-family:'DM Mono',monospace;opacity:.4;margin-top:2px}
-.home-habits-preview{padding:0 14px 28px}
-.home-habits-title{font-size:10px;color:var(--accent2);font-family:'DM Mono',monospace;letter-spacing:.8px;text-transform:uppercase;opacity:.65;margin-bottom:8px}
-.home-habit-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;margin-bottom:6px}
-.home-habit-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.home-habit-name{font-size:13px;flex:1;color:var(--text2)}
-.home-habit-xp{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3)}
-.home-all-done{text-align:center;padding:14px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:12px;color:var(--green);font-size:13px;font-weight:600}
 
 /* Rank ladder */
 .rank-ladder-item{border-radius:16px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:14px;border:1px solid var(--border);position:relative;overflow:hidden;transition:all .2s}
@@ -150,36 +143,35 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .save-btn:active{opacity:.85;transform:scale(.99)}
 .export-hist-btn{padding:14px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:14px;color:var(--text2);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
 
-/* Habit page */
-.habit-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;margin-bottom:8px;padding:14px;display:flex;align-items:center;gap:12px;transition:border-color .2s}
-.habit-card.done-habit{border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.04)}
-.habit-check{width:36px;height:36px;border-radius:50%;border:2px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:16px}
-.habit-check.done{border-color:var(--green);background:rgba(74,222,128,0.15)}
-.habit-info{flex:1}
-.habit-name{font-size:14px;font-weight:500;color:var(--text)}
-.habit-card.done-habit .habit-name{color:var(--text3);text-decoration:line-through}
-.habit-meta{display:flex;align-items:center;gap:8px;margin-top:3px}
-.habit-diff{font-size:10px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:20px;font-weight:500}
-.diff-easy{background:rgba(74,222,128,0.15);color:#4ade80}
-.diff-medium{background:rgba(251,191,36,0.15);color:#fbbf24}
-.diff-hard{background:rgba(251,146,60,0.15);color:#fb923c}
-.diff-legendary{background:rgba(167,139,250,0.15);color:#a78bfa}
-.habit-xp{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace}
-.habit-del{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.add-habit-card{background:var(--bg2);border:1px dashed var(--border2);border-radius:16px;padding:14px;margin-bottom:8px}
-.add-habit-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px}
-.habit-input{width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:10px;padding:9px 12px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);margin-bottom:8px}
-.habit-input:focus{outline:none;border-color:var(--accent)}
-.diff-selector{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.diff-btn{padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:transparent;font-size:11px;font-weight:500;font-family:'DM Mono',monospace;cursor:pointer;transition:all .15s;color:var(--text3)}
-.diff-btn.sel-easy{background:rgba(74,222,128,0.15);border-color:#4ade80;color:#4ade80}
-.diff-btn.sel-medium{background:rgba(251,191,36,0.15);border-color:#fbbf24;color:#fbbf24}
-.diff-btn.sel-hard{background:rgba(251,146,60,0.15);border-color:#fb923c;color:#fb923c}
-.diff-btn.sel-legendary{background:rgba(167,139,250,0.15);border-color:#a78bfa;color:#a78bfa}
-.add-habit-btn{width:100%;padding:10px;background:var(--accent-dim);border:1px solid rgba(124,111,205,0.3);border-radius:10px;color:var(--accent2);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
-.habit-summary{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.habit-summary-label{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.4px}
-.habit-summary-val{font-size:16px;font-weight:700;color:var(--accent2);font-family:'DM Mono',monospace}
+/* Last workout page */
+.last-header{padding:18px 16px 8px}
+.last-day{font-size:24px;font-weight:800;letter-spacing:-1px}
+.last-date{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:2px}
+.last-pct-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.last-pct-bar{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.last-pct-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px}
+.last-pct-val{font-size:13px;font-family:'DM Mono',monospace;color:var(--accent2);font-weight:600;flex-shrink:0}
+.last-ex-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:8px}
+.last-ex-name{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.last-set-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;color:var(--text2);border-top:1px solid var(--border)}
+.last-set-row:first-of-type{border-top:none}
+.last-set-val{font-family:'DM Mono',monospace}
+.last-set-check{color:var(--green);font-size:13px}
+.last-set-pending{color:var(--text3)}
+.last-open-btn{width:100%;padding:13px;background:linear-gradient(135deg,#7c6fcd,#a78bfa);border:none;border-radius:13px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;margin-bottom:16px}
+
+/* Exercise progress chart */
+.chart-picker{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.chart-picker::-webkit-scrollbar{display:none}
+.chart-chip{flex-shrink:0;padding:7px 14px;border-radius:30px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap}
+.chart-chip.active{background:linear-gradient(135deg,#7c6fcd,#a78bfa);border-color:transparent;color:#fff;font-weight:600}
+.chart-area{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px;margin-top:10px;min-height:100px}
+.chart-title{font-size:14px;font-weight:600;margin-bottom:10px}
+.chart-svg{width:100%;height:160px;display:block}
+.chart-meta-row{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;font-family:'DM Mono',monospace;color:var(--text2)}
+.chart-up{color:var(--green);font-weight:600}
+.chart-down{color:var(--red);font-weight:600}
+.chart-empty{color:var(--text3);font-size:13px;text-align:center;padding:24px 12px;font-family:'DM Mono',monospace;line-height:1.6}
 
 /* Side quests */
 .quest-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;margin-bottom:8px;padding:14px;position:relative;overflow:hidden}
@@ -342,7 +334,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     <div id="home-quote-area"></div>
     <div class="home-divider"></div>
     <div id="home-rank-area"></div>
-    <div class="home-habits-preview" id="home-habits-preview"></div>
   </div>
 
   <!-- LOG PAGE -->
@@ -359,33 +350,26 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     </div>
   </div>
 
-  <!-- HABITS PAGE -->
-  <div class="page" id="page-habits">
-    <div class="page-inner">
-      <div id="habit-summary-area"></div>
-      <div class="section-label">Today's habits</div>
-      <div id="habits-list"></div>
-      <div class="section-label" style="margin-top:18px">Weekly side quests</div>
-      <div id="quests-list"></div>
-      <div class="section-label" style="margin-top:18px">Add habit <span id="habit-count-label" style="opacity:.5"></span></div>
-      <div class="add-habit-card">
-        <input class="habit-input" type="text" id="new-habit-name" placeholder="Habit name (e.g. Sleep 8hrs)">
-        <div class="diff-selector" id="diff-selector">
-          <button class="diff-btn" data-diff="easy" onclick="selectDiff('easy',this)">Easy +25</button>
-          <button class="diff-btn" data-diff="medium" onclick="selectDiff('medium',this)">Medium +75</button>
-          <button class="diff-btn" data-diff="hard" onclick="selectDiff('hard',this)">Hard +150</button>
-          <button class="diff-btn" data-diff="legendary" onclick="selectDiff('legendary',this)">Legendary +300</button>
-        </div>
-        <button class="add-habit-btn" onclick="addHabit()">+ Add habit</button>
-      </div>
-    </div>
+  <!-- LAST WORKOUT PAGE -->
+  <div class="page" id="page-last">
+    <div class="page-inner" id="last-workout-container"></div>
   </div>
 
   <!-- PROGRESS PAGE -->
   <div class="page" id="page-progress">
     <div class="page-inner">
       <div id="rank-container"></div>
-      <div class="section-label">Rank ladder</div>
+
+      <div class="section-label">Exercise progress</div>
+      <div class="chart-picker" id="chart-picker"></div>
+      <div class="chart-area" id="chart-area"></div>
+
+      <div class="section-label" style="margin-top:20px">Weekly side quests</div>
+      <div id="quests-list"></div>
+      <div class="section-label" style="margin-top:14px">Milestone quests</div>
+      <div id="milestone-list"></div>
+
+      <div class="section-label" style="margin-top:20px">Rank ladder</div>
       <div id="rank-ladder-container"></div>
     </div>
   </div>
@@ -420,7 +404,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
       <div class="backup-card">
         <div class="backup-card-title">💾 Save all data</div>
-        <div class="backup-card-desc">Exports everything — workout history, habits, quests, XP — as a single backup file saved to your Files app. Do this regularly so you never lose progress.</div>
+        <div class="backup-card-desc">Exports everything — workout history, quests, custom plan, XP — as a single backup file saved to your Files app. Do this regularly so you never lose progress.</div>
         <button class="backup-btn backup-btn-export" onclick="exportFullBackup()">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Export backup file
@@ -434,7 +418,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
       <div class="backup-card">
         <div class="backup-card-title">📂 Restore from backup</div>
-        <div class="backup-card-desc">Pick a backup file (.json) you exported before. Your current data will be replaced with the backup — all history, habits and XP restored.</div>
+        <div class="backup-card-desc">Pick a backup file (.json) you exported before. Your current data will be replaced with the backup — all history, quests and XP restored.</div>
         <button class="backup-btn backup-btn-import" onclick="document.getElementById('import-file-input').click()">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Choose backup file
@@ -444,7 +428,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
       <div class="backup-card">
         <div class="backup-card-title">🗑️ Clear all data</div>
-        <div class="backup-card-desc">Permanently deletes all your workout history, habits, XP and progress. Cannot be undone — export a backup first.</div>
+        <div class="backup-card-desc">Permanently deletes all your workout history, quests, XP and progress. Cannot be undone — export a backup first.</div>
         <button class="backup-btn backup-btn-danger" onclick="confirmClearData()">
           <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
           Clear all data
@@ -483,8 +467,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
     <button class="nav-btn" onclick="showPage('log',this)">
       <svg viewBox="0 0 24 24"><path d="M12 2v6m0 0l3-3m-3 3l-3-3M4 12h16M4 16h16M4 20h10"/></svg>Log
     </button>
-    <button class="nav-btn" onclick="showPage('habits',this)">
-      <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Habits
+    <button class="nav-btn" onclick="showPage('last',this)">
+      <svg viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>Last
     </button>
     <button class="nav-btn" onclick="showPage('progress',this)">
       <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Progress
@@ -597,51 +581,52 @@ function buildQuote() {
 // ── WORKOUT DATA ─────────────────────────────────────
 const DAYS = [
   {id:'pushA',label:'Mon · Push A',exercises:[
-    {name:'Incline Dumbbell Press',sets:3,range:'6–10',goal:true},
-    {name:'Machine Chest Press',sets:2,range:'8–12'},
-    {name:'Cable Fly',sets:2,range:'12–15'},
-    {name:'Standing Barbell OHP',sets:4,range:'6–10',goal:true},
-    {name:'Dumbbell Lateral Raise',sets:5,range:'12–20',goal:true},
-    {name:'Overhead Tricep Extension',sets:3,range:'10–15'},
-    {name:'Tricep Pushdown',sets:3,range:'10–15'}
+    {name:'Incline Dumbbell Press',sets:3,range:'6-10',goal:true},
+    {name:'Machine Chest Press',sets:2,range:'8-12'},
+    {name:'Cable Fly',sets:2,range:'12-15'},
+    {name:'Standing Barbell OHP',sets:4,range:'6-10',goal:true},
+    {name:'Dumbbell Lateral Raise',sets:4,range:'12-20',goal:true},
+    {name:'Overhead Tricep Extension',sets:3,range:'10-15'},
+    {name:'Tricep Pushdown',sets:3,range:'10-15'}
   ]},
   {id:'pullA',label:'Tue · Pull A',exercises:[
-    {name:'Lat Pulldown',sets:4,range:'8–12',goal:true},
-    {name:'Cable Row',sets:3,range:'8–12'},
-    {name:'Reverse Pec Deck',sets:3,range:'12–15'},
-    {name:'Preacher Curl',sets:3,range:'8–12'},
-    {name:'Hammer Curl',sets:3,range:'10–15'}
+    {name:'Lat Pulldown',sets:4,range:'8-12',goal:true},
+    {name:'Cable Row',sets:3,range:'8-12'},
+    {name:'Face Pulls',sets:3,range:'15-20'},
+    {name:'Preacher Curl',sets:3,range:'8-12'},
+    {name:'Hammer Curl',sets:3,range:'10-15'}
   ]},
-  {id:'legs',label:'Wed · Legs',exercises:[
-    {name:'Leg Press',sets:4,range:'8–12'},
-    {name:'Leg Extension',sets:5,range:'12–15'},
-    {name:'Leg Curl',sets:3,range:'10–15'},
-    {name:'Standing Calf Raise',sets:4,range:'10–20'},
-    {name:'Hanging Leg Raise',sets:3,range:'10–15'}
+  {id:'legs',label:'Wed · Legs (Quad)',exercises:[
+    {name:'Leg Press',sets:4,range:'8-12',goal:true},
+    {name:'Leg Extension',sets:3,range:'12-15'},
+    {name:'Leg Curl',sets:3,range:'10-15'},
+    {name:'Standing Calf Raise',sets:4,range:'10-20'},
+    {name:'Hanging Leg Raise',sets:3,range:'10-15'}
   ]},
   {id:'rest',label:'Thu · Rest',exercises:[
     {name:'Rest day',sets:0,range:'',rest:true}
   ]},
   {id:'upper',label:'Fri · Upper',exercises:[
-    {name:'Incline Bench Press',sets:3,range:'6–10',goal:true},
-    {name:'Pull-Ups',sets:3,range:'6–10'},
-    {name:'Seated Cable Row',sets:3,range:'8–12'},
-    {name:'Standing Barbell OHP',sets:3,range:'5–8',goal:true},
-    {name:'Dumbbell Lateral Raise',sets:3,range:'12–20',goal:true},
-    {name:'Face Pulls',sets:3,range:'15–20'},
-    {name:'Preacher Curl',sets:3,range:'8–12'},
-    {name:'Tricep Pushdown',sets:3,range:'10–15'}
+    {name:'Incline Bench Press',sets:3,range:'6-10',goal:true},
+    {name:'Pull-Ups',sets:3,range:'6-10'},
+    {name:'Seated Cable Row',sets:3,range:'8-12'},
+    {name:'Standing Barbell OHP',sets:3,range:'5-8',goal:true},
+    {name:'Dumbbell Lateral Raise',sets:3,range:'12-20',goal:true},
+    {name:'Face Pulls',sets:3,range:'15-20'},
+    {name:'Preacher Curl',sets:3,range:'8-12'},
+    {name:'Tricep Pushdown',sets:3,range:'10-15'}
   ]},
-  {id:'lower',label:'Sat · Lower',exercises:[
-    {name:'Romanian Deadlift',sets:4,range:'6–10'},
-    {name:'Hip Thrust',sets:3,range:'8–12'},
-    {name:'Seated Leg Curl',sets:3,range:'10–15'},
-    {name:'Standing Calf Raise',sets:4,range:'10–20'},
-    {name:'Cable Crunch',sets:3,range:'12–20'}
+  {id:'lower',label:'Sat · Lower (Glute)',exercises:[
+    {name:'Romanian Deadlift',sets:4,range:'6-10',goal:true},
+    {name:'Hip Thrust',sets:3,range:'8-12'},
+    {name:'Seated Leg Curl',sets:3,range:'10-15'},
+    {name:'Hip Abduction Machine',sets:3,range:'15-20'},
+    {name:'Standing Calf Raise',sets:4,range:'10-20'},
+    {name:'Cable Crunch',sets:3,range:'12-20'}
   ]}
 ];
 
-const GOALS = ['Incline Dumbbell Press','Standing Barbell OHP','Dumbbell Lateral Raise','Lat Pulldown','Incline Bench Press'];
+const GOALS = ['Incline Dumbbell Press','Standing Barbell OHP','Dumbbell Lateral Raise','Lat Pulldown','Incline Bench Press','Leg Press','Romanian Deadlift'];
 
 // ── RANK SYSTEM ──────────────────────────────────────
 const RANKS = [
@@ -658,25 +643,35 @@ const RANKS = [
 ];
 
 // ── SIDE QUESTS ──────────────────────────────────────
-const QUEST_POOL = [
-  {id:'q1',  title:'Show Up',         desc:'Complete 3 workouts this week.',              xp:200,  type:'workouts',      target:3},
-  {id:'q2',  title:'Full Week',        desc:'Train 5 days this week.',                    xp:500,  type:'workouts',      target:5},
-  {id:'q3',  title:'Perfect Session',  desc:'Finish a workout with every set completed.', xp:250,  type:'perfect',       target:1},
-  {id:'q4',  title:'Habit Streak',     desc:'Complete your habits 3 days in a row.',      xp:300,  type:'habitstreak',   target:3},
-  {id:'q5',  title:'Century',          desc:'Complete 100 sets this week.',               xp:400,  type:'sets',          target:100},
-  {id:'q6',  title:'Half Century',     desc:'Complete 50 sets this week.',               xp:180,  type:'sets',          target:50},
-  {id:'q7',  title:'Habit Builder',    desc:'Check off at least one habit every day this week.',xp:350,type:'habitdays',target:5},
-  {id:'q8',  title:'10 Sessions',      desc:'Reach 10 total workouts logged.',            xp:600,  type:'totalworkouts', target:10},
-  {id:'q9',  title:'25 Sessions',      desc:'Reach 25 total workouts logged.',            xp:1200, type:'totalworkouts', target:25},
-  {id:'q10', title:'On A Roll',        desc:'Train 4 days in a row.',                    xp:450,  type:'workoutstreak', target:4},
-  {id:'q11', title:'3 Perfect',        desc:'Complete 3 full workouts this week.',        xp:550,  type:'perfect',       target:3},
-  {id:'q12', title:'Daily Dose',       desc:'Complete all habits for 2 days this week.',  xp:220,  type:'habitdays',     target:2},
+const WEEKLY_QUESTS = [
+  {id:'w1',  title:'Show Up',        desc:'Complete 3 workouts this week.',               xp:500,  type:'workouts',     target:3},
+  {id:'w2',  title:'Full Week',      desc:'Train 5 days this week.',                      xp:1200, type:'workouts',     target:5},
+  {id:'w3',  title:'Perfect Session',desc:'Finish a workout with every set completed.',   xp:600,  type:'perfect',      target:1},
+  {id:'w4',  title:'Century',        desc:'Complete 100 sets this week.',                 xp:900,  type:'sets',         target:100},
+  {id:'w5',  title:'Half Century',   desc:'Complete 50 sets this week.',                  xp:450,  type:'sets',         target:50},
+  {id:'w6',  title:'3 Perfect',      desc:'Complete 3 full workouts this week.',          xp:1000, type:'perfect',      target:3},
+  {id:'w7',  title:'On A Roll',      desc:'Train 4 days in a row.',                      xp:800,  type:'workoutstreak',target:4},
+  {id:'w8',  title:'Grind Week',     desc:'Complete 150 sets this week.',                 xp:1500, type:'sets',         target:150},
+  {id:'w9',  title:'No Days Off',    desc:'Train 6 days this week.',                     xp:2000, type:'workouts',     target:6},
+  {id:'w10', title:'Double Up',      desc:'Train twice in one day.',                      xp:700,  type:'doubleday',    target:1},
+];
+
+const MILESTONE_QUESTS = [
+  {id:'m1',  title:'First Blood',    desc:'Log your first workout.',                      xp:200,  type:'totalworkouts',target:1},
+  {id:'m2',  title:'10 Sessions',    desc:'Reach 10 total workouts.',                     xp:800,  type:'totalworkouts',target:10},
+  {id:'m3',  title:'25 Sessions',    desc:'Reach 25 total workouts.',                     xp:2000, type:'totalworkouts',target:25},
+  {id:'m4',  title:'50 Sessions',    desc:'Reach 50 total workouts.',                     xp:4000, type:'totalworkouts',target:50},
+  {id:'m5',  title:'100 Sessions',   desc:'Reach 100 total workouts.',                    xp:8000, type:'totalworkouts',target:100},
+  {id:'m6',  title:'1,000 Sets',     desc:'Complete 1,000 total sets.',                   xp:3000, type:'totalsets',    target:1000},
+  {id:'m7',  title:'5,000 Sets',     desc:'Complete 5,000 total sets.',                   xp:10000,type:'totalsets',    target:5000},
+  {id:'m8',  title:'Week Warrior',   desc:'Maintain a 7-day streak.',                     xp:2500, type:'streak',       target:7},
+  {id:'m9',  title:'Iron Fortnight', desc:'Maintain a 14-day streak.',                    xp:5000, type:'streak',       target:14},
+  {id:'m10', title:'Month of Steel', desc:'Maintain a 30-day streak.',                    xp:12000,type:'streak',       target:30},
 ];
 
 function getWeeklyQuests() {
   const week = Math.floor(Date.now() / (7 * 86400000));
-  const pool = [...QUEST_POOL];
-  // deterministic shuffle by week
+  const pool = [...WEEKLY_QUESTS];
   for (let i = pool.length - 1; i > 0; i--) {
     const j = (week * 1337 + i * 31) % (i + 1);
     [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -686,16 +681,14 @@ function getWeeklyQuests() {
 
 // ── STATE ────────────────────────────────────────────
 let currentDay = 'pushA';
-let liveData = {}, history = [], habitData = {}, questData = {}, customPlan = null;
+let liveData = {}, history = [], questData = {}, customPlan = null;
 let editDayId = null, editDraft = null;
-let selectedDiff = 'medium';
 
 function getActivePlan() { return customPlan || DAYS; }
 
 function load() {
   try { history = JSON.parse(localStorage.getItem('lw_history')||'[]'); } catch(e) { history=[]; }
   try { liveData = JSON.parse(localStorage.getItem('lw_live')||'{}'); } catch(e) { liveData={}; }
-  try { habitData = JSON.parse(localStorage.getItem('lw_habits')||'{}'); } catch(e) { habitData={}; }
   try { questData = JSON.parse(localStorage.getItem('lw_quests')||'{}'); } catch(e) { questData={}; }
   try { const cp = localStorage.getItem('lw_plan'); if(cp) customPlan=JSON.parse(cp); } catch(e) {}
 }
@@ -704,7 +697,6 @@ function save() {
   try {
     localStorage.setItem('lw_history', JSON.stringify(history));
     localStorage.setItem('lw_live', JSON.stringify(liveData));
-    localStorage.setItem('lw_habits', JSON.stringify(habitData));
     localStorage.setItem('lw_quests', JSON.stringify(questData));
     if (customPlan) localStorage.setItem('lw_plan', JSON.stringify(customPlan));
   } catch(e) {}
@@ -731,28 +723,14 @@ function calcWorkoutXP() {
   let xp=0;
   const sorted=[...history].reverse(); // oldest first
   sorted.forEach((h,i)=>{
-    xp+=(h.doneSets||0)*10;
-    if(h.doneSets>0&&h.doneSets===h.totalSets) xp+=50;
+    xp+=(h.doneSets||0)*15; // 15 XP per set
+    if(h.doneSets>0&&h.doneSets===h.totalSets) xp+=100; // perfect session bonus
     if(i>0){
       const prevDate=new Date(sorted[i-1].ts).toDateString();
       const currDate=new Date(h.ts).toDateString();
       const diff=Math.round(Math.abs(new Date(currDate)-new Date(prevDate))/86400000);
-      if(diff<=1&&currDate!==prevDate) xp+=100;
+      if(diff<=1&&currDate!==prevDate) xp+=150; // streak bonus
     }
-  });
-  return xp;
-}
-
-function calcHabitXP() {
-  let xp=0;
-  const habits = habitData.habits||[];
-  const logs = habitData.logs||{};
-  Object.values(logs).forEach(dayLog=>{
-    Object.entries(dayLog).forEach(([hid,done])=>{
-      if(!done) return;
-      const h=habits.find(x=>x.id===hid);
-      if(h) xp+=diffXP(h.diff);
-    });
   });
   return xp;
 }
@@ -763,11 +741,7 @@ function calcQuestXP() {
   return xp;
 }
 
-function calcTotalXP() { return calcWorkoutXP()+calcHabitXP()+calcQuestXP(); }
-
-function diffXP(d) { return {easy:25,medium:75,hard:150,legendary:300}[d]||75; }
-function diffLabel(d) { return {easy:'Easy',medium:'Medium',hard:'Hard',legendary:'Legendary'}[d]||'Medium'; }
-function diffClass(d) { return `diff-${d}`; }
+function calcTotalXP() { return calcWorkoutXP()+calcQuestXP(); }
 
 // ── HOME PAGE ─────────────────────────────────────────
 function buildHomePage() {
@@ -822,24 +796,6 @@ function buildHomePage() {
       </div>`:''}
     </div>`;
 
-  // Habits preview
-  const habits=getHabits(), log=getTodayLog();
-  const pending=habits.filter(h=>!log[h.id]);
-  const hp=document.getElementById('home-habits-preview');
-  if(hp){
-    if(!habits.length){hp.innerHTML='';return;}
-    hp.innerHTML=`<div class="home-habits-title">Habits today</div>`;
-    if(!pending.length){
-      hp.innerHTML+=`<div class="home-all-done">✓ All habits done today!</div>`;
-    } else {
-      pending.slice(0,4).forEach(h=>{
-        const colors={easy:'#4ade80',medium:'#fbbf24',hard:'#fb923c',legendary:'#a78bfa'};
-        hp.innerHTML+=`<div class="home-habit-row"><div class="home-habit-dot" style="background:${colors[h.diff]||'#888'}"></div><span class="home-habit-name">${h.name}</span><span class="home-habit-xp">+${diffXP(h.diff)} XP</span></div>`;
-      });
-      if(pending.length>4) hp.innerHTML+=`<div style="font-size:11px;color:var(--text3);text-align:center;padding:6px;font-family:'DM Mono',monospace">+${pending.length-4} more habits</div>`;
-    }
-  }
-
   // Update topbar badge
   const re=document.getElementById('topbar-rank-emoji'), rn=document.getElementById('topbar-rank-name');
   if(re)re.textContent=rank.emoji; if(rn){rn.textContent=rank.name;rn.style.color=rank.glow;}
@@ -883,6 +839,8 @@ function getPR(name) {
 
 function buildProgress() {
   buildRankCard();
+  buildChartPicker();
+  buildQuests();
   const xp=calcTotalXP(), currentRank=getRank(xp);
   const c=document.getElementById('rank-ladder-container');
   if(!c)return;
@@ -914,88 +872,9 @@ function buildProgress() {
   });
 }
 
-// ── HABITS ────────────────────────────────────────────
-function todayKey() { return new Date().toDateString(); }
-
-function getHabits() { return habitData.habits||[]; }
-function getTodayLog() { return (habitData.logs||{})[todayKey()]||{}; }
-
-function selectDiff(d,btn) {
-  selectedDiff=d;
-  document.querySelectorAll('.diff-btn').forEach(b=>b.className='diff-btn');
-  btn.className=`diff-btn sel-${d}`;
-}
-
-function addHabit() {
-  const name=document.getElementById('new-habit-name').value.trim();
-  if(!name){showToast('Enter a habit name');return;}
-  if(!habitData.habits)habitData.habits=[];
-  if(habitData.habits.length>=8){showToast('Max 8 habits reached');return;}
-  habitData.habits.push({id:'h'+Date.now(),name,diff:selectedDiff});
-  document.getElementById('new-habit-name').value='';
-  save(); buildHabits();
-}
-
-function toggleHabit(hid) {
-  if(!habitData.logs)habitData.logs={};
-  const dk=todayKey();
-  if(!habitData.logs[dk])habitData.logs[dk]={};
-  const was=!!habitData.logs[dk][hid];
-  habitData.logs[dk][hid]=!was;
-  save();
-  const h=getHabits().find(x=>x.id===hid);
-  if(!was&&h){
-    const xp=diffXP(h.diff);
-    showToast(`+${xp} XP — ${h.name}!`);
-  }
-  buildHabits();
-  buildRankCard();
-  buildHomePage();
-}
-
-function deleteHabit(hid) {
-  habitData.habits=(habitData.habits||[]).filter(h=>h.id!==hid);
-  save(); buildHabits();
-}
-
-function countHabitDaysThisWeek() {
-  const logs=habitData.logs||{};
-  const habits=getHabits();
-  if(!habits.length)return 0;
-  const weekStart=Date.now()-6*86400000;
-  let days=0;
-  Object.entries(logs).forEach(([dk,log])=>{
-    if(new Date(dk)<weekStart)return;
-    const done=habits.filter(h=>log[h.id]);
-    if(done.length===habits.length&&habits.length>0)days++;
-  });
-  return days;
-}
-
-function buildHabits() {
-  const habits=getHabits(), log=getTodayLog();
-  const doneCnt=habits.filter(h=>log[h.id]).length;
-  const totalXP=habits.filter(h=>log[h.id]).reduce((a,h)=>a+diffXP(h.diff),0);
-  // summary
-  const sa=document.getElementById('habit-summary-area');
-  const lbl=document.getElementById('habit-count-label');
-  if(lbl)lbl.textContent=`(${habits.length}/8)`;
-  if(sa)sa.innerHTML=`<div class="habit-summary"><div><div class="habit-summary-label">Today's habits</div><div style="font-size:12px;color:var(--text2);margin-top:2px">${doneCnt}/${habits.length} completed</div></div><div class="habit-summary-val">+${totalXP} XP</div></div>`;
-  // list
-  const list=document.getElementById('habits-list');
-  if(!habits.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">🎯</div><div class="empty-text">No habits yet.<br>Add one below.</div></div>';return;}
-  list.innerHTML='';
-  habits.forEach(h=>{
-    const done=!!log[h.id];
-    const card=document.createElement('div');
-    card.className='habit-card'+(done?' done-habit':'');
-    card.innerHTML=`<button class="habit-check${done?' done':''}" onclick="toggleHabit('${h.id}')">${done?'✓':''}</button><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-meta"><span class="habit-diff ${diffClass(h.diff)}">${diffLabel(h.diff)}</span><span class="habit-xp">+${diffXP(h.diff)} XP</span></div></div><button class="habit-del" onclick="deleteHabit('${h.id}')">×</button>`;
-    list.appendChild(card);
-  });
-  buildQuests();
-}
-
 // ── SIDE QUESTS ──────────────────────────────────────
+function getTotalSets() { return history.reduce((a,h)=>a+(h.doneSets||0),0); }
+
 function getQuestProgress(quest) {
   const now=Date.now(), weekStart=now-7*86400000;
   const weekHistory=history.filter(h=>h.ts>weekStart);
@@ -1003,26 +882,15 @@ function getQuestProgress(quest) {
     case 'workouts': return Math.min(quest.target,weekHistory.length);
     case 'sets': return Math.min(quest.target,weekHistory.reduce((a,h)=>a+(h.doneSets||0),0));
     case 'perfect': return Math.min(quest.target,weekHistory.filter(h=>h.doneSets===h.totalSets&&h.totalSets>0).length);
-    case 'habitdays': {
-      // count days this week where at least one habit was completed
-      const logs=habitData.logs||{};
-      const habits=getHabits();
-      const weekStart=Date.now()-7*86400000;
-      let days=0;
-      Object.entries(logs).forEach(([dk,log])=>{
-        if(new Date(dk)<weekStart)return;
-        if(habits.some(h=>log[h.id]))days++;
-      });
-      return Math.min(quest.target,days);
-    }
     case 'totalworkouts': return Math.min(quest.target,history.length);
+    case 'totalsets': return Math.min(quest.target,getTotalSets());
     case 'workoutstreak': return Math.min(quest.target,getStreak());
-    case 'habitstreak':{
-      const logs=habitData.logs||{}, habits=getHabits();
-      let streak=0;
-      const dates=[...Array(14)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-i);return d.toDateString();});
-      for(const d of dates){const log=logs[d]||{};if(habits.length&&habits.every(h=>log[h.id])){streak++;}else break;}
-      return Math.min(quest.target,streak);
+    case 'streak': return Math.min(quest.target,getStreak());
+    case 'doubleday':{
+      // check if any date this week has 2+ sessions
+      const dayCounts={};
+      weekHistory.forEach(h=>{const d=new Date(h.ts).toDateString();dayCounts[d]=(dayCounts[d]||0)+1;});
+      return Math.min(quest.target,Object.values(dayCounts).some(c=>c>=2)?1:0);
     }
     default: return 0;
   }
@@ -1045,17 +913,16 @@ function calcQuestXP() {
 function buildQuests() {
   const quests=getWeeklyQuests();
   const currentWeek=Math.floor(Date.now()/(7*86400000));
-  const list=document.getElementById('quests-list'); list.innerHTML='';
+  const list=document.getElementById('quests-list'); if(!list)return; list.innerHTML='';
   quests.forEach(q=>{
     const prog=getQuestProgress(q);
     const pct=Math.round((prog/q.target)*100);
-    // Only consider claimed if claimed THIS week
-    const claimed=!!(questData[q.id]?.claimed && questData[q.id]?.week===currentWeek);
+    const claimed=!!(questData[q.id]?.claimed&&questData[q.id]?.week===currentWeek);
     const complete=prog>=q.target;
     const card=document.createElement('div');
     card.className='quest-card'+(claimed?' quest-done':'');
     card.innerHTML=`
-      <span class="quest-badge ${claimed?'quest-badge-done':'quest-badge-weekly'}">${claimed?'✓ Done':'Weekly'}</span>
+      <span class="quest-badge ${claimed?'quest-badge-done':'quest-badge-weekly'}">${claimed?'✓ Done':'This week'}</span>
       <div class="quest-title">${q.title}</div>
       <div class="quest-desc">${q.desc}</div>
       <div class="quest-bar-wrap"><div class="quest-bar-fill" style="width:${claimed?100:pct}%"></div></div>
@@ -1065,6 +932,36 @@ function buildQuests() {
       </div>`;
     list.appendChild(card);
   });
+  buildMilestones();
+}
+
+function buildMilestones() {
+  const list=document.getElementById('milestone-list'); if(!list)return; list.innerHTML='';
+  MILESTONE_QUESTS.forEach(q=>{
+    const prog=getQuestProgress(q);
+    const pct=Math.min(100,Math.round((prog/q.target)*100));
+    const claimed=!!(questData[q.id]?.claimed);
+    const complete=prog>=q.target;
+    const card=document.createElement('div');
+    card.className='quest-card'+(claimed?' quest-done':'');
+    card.innerHTML=`
+      <span class="quest-badge ${claimed?'quest-badge-done':'quest-badge-weekly'}">${claimed?'✓ Done':'Milestone'}</span>
+      <div class="quest-title">${q.title}</div>
+      <div class="quest-desc">${q.desc}</div>
+      <div class="quest-bar-wrap"><div class="quest-bar-fill" style="width:${claimed?100:pct}%"></div></div>
+      <div class="quest-bottom" style="margin-top:8px">
+        <span class="quest-xp">+${q.xp.toLocaleString()} XP</span>
+        ${claimed?'<span class="quest-progress" style="color:var(--gold)">Claimed ✓</span>':complete?`<button class="quest-claim-btn" onclick="claimMilestone('${q.id}',${q.xp})">Claim!</button>`:`<span class="quest-progress">${prog}/${q.target}</span>`}
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+function claimMilestone(qid, xp) {
+  if(questData[qid]?.claimed){showToast('Already claimed!');return;}
+  questData[qid]={claimed:true,xp,ts:Date.now()};
+  save(); buildMilestones(); buildRankCard(); buildHomePage();
+  showToast(`+${xp} XP — Milestone unlocked! 🏆`);
 }
 
 // ── LOG ───────────────────────────────────────────────
@@ -1149,12 +1046,130 @@ function saveWorkout() {
   const xpAfter=calcTotalXP();
   const rankBefore=getRank(xpBefore), rankAfter=getRank(xpAfter);
   const xpGained=xpAfter-xpBefore;
-  buildExercises(); buildProgress(); buildHistory(); buildHomePage();
+  buildExercises(); buildProgress(); buildHistory(); buildHomePage(); buildLastWorkout();
   const streak=getStreak();
   if(rankAfter.name!==rankBefore.name){showToast(`${rankAfter.emoji} RANK UP — ${rankAfter.name}!`);}
   else{showToast(streak>1?`+${xpGained} XP · 🔥 ${streak} day streak`:`+${xpGained} XP earned!`);}
   document.getElementById('streak-display').textContent=streak>1?`🔥 ${streak} day streak`:'';
   setTimeout(()=>openExportModal(0),900);
+}
+
+// ── LAST WORKOUT ──────────────────────────────────────
+function buildLastWorkout() {
+  const c=document.getElementById('last-workout-container');
+  if(!c)return;
+  if(!history.length){
+    c.innerHTML=`<div class="empty-state"><div class="empty-icon">🕐</div><div class="empty-text">No workouts logged yet.<br>Your most recent session will show here.</div></div>`;
+    return;
+  }
+  const h=history[0];
+  const pct=h.totalSets?Math.round((h.doneSets/h.totalSets)*100):0;
+  let html=`
+    <div class="last-header">
+      <div class="last-day">${h.dayLabel}</div>
+      <div class="last-date">${h.date}</div>
+      <div class="last-pct-row">
+        <div class="last-pct-bar"><div class="last-pct-fill" style="width:${pct}%"></div></div>
+        <div class="last-pct-val">${h.doneSets}/${h.totalSets} sets · ${pct}%</div>
+      </div>
+    </div>`;
+  (h.exercises||[]).forEach(ex=>{
+    html+=`<div class="last-ex-card"><div class="last-ex-name">${ex.name}</div>`;
+    ex.sets.forEach((s,i)=>{
+      const w=s.weight?`${s.weight}kg`:'—';
+      const r=s.reps?`${s.reps} reps`:'—';
+      html+=`<div class="last-set-row"><span>Set ${i+1}</span><span class="last-set-val">${w} × ${r}</span><span class="${s.done?'last-set-check':'last-set-pending'}">${s.done?'✓':'○'}</span></div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`<button class="last-open-btn" onclick="goToLogDay('${h.dayId}')">Open ${h.dayLabel} in Log</button>`;
+  c.innerHTML=html;
+}
+
+function goToLogDay(dayId) {
+  currentDay=dayId;
+  buildDayStrip();
+  buildExercises();
+  const navBtns=document.querySelectorAll('.nav-btn');
+  navBtns.forEach(b=>{ if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'log'")) b.click(); });
+}
+
+// ── EXERCISE PROGRESS CHART ──────────────────────────
+let selectedChartExercise=null;
+
+function getExerciseNames() {
+  const names=new Set();
+  getActivePlan().forEach(d=>d.exercises.forEach(e=>{if(!e.rest)names.add(e.name)}));
+  history.forEach(h=>(h.exercises||[]).forEach(e=>names.add(e.name)));
+  return [...names];
+}
+
+function getExerciseHistory(name) {
+  const sorted=[...history].reverse(); // oldest first
+  const points=[];
+  sorted.forEach(h=>{
+    const ex=(h.exercises||[]).find(e=>e.name===name);
+    if(!ex)return;
+    let maxW=null;
+    ex.sets.forEach(s=>{ if(s.weight){const v=parseFloat(s.weight); if(maxW===null||v>maxW)maxW=v;} });
+    if(maxW!==null) points.push({date:h.date,ts:h.ts,weight:maxW});
+  });
+  return points;
+}
+
+function buildChartPicker() {
+  const picker=document.getElementById('chart-picker');
+  if(!picker)return;
+  const names=getExerciseNames();
+  if(!selectedChartExercise && names.length) selectedChartExercise=names[0];
+  picker.innerHTML='';
+  names.forEach(name=>{
+    const chip=document.createElement('button');
+    chip.className='chart-chip'+(name===selectedChartExercise?' active':'');
+    chip.textContent=name;
+    chip.onclick=()=>{ selectedChartExercise=name; buildChartPicker(); buildChart(name); };
+    picker.appendChild(chip);
+  });
+  if(selectedChartExercise) buildChart(selectedChartExercise);
+  else { const area=document.getElementById('chart-area'); if(area) area.innerHTML=`<div class="chart-empty">No exercises found. Log a workout first.</div>`; }
+}
+
+function buildChart(name) {
+  const area=document.getElementById('chart-area');
+  if(!area)return;
+  const points=getExerciseHistory(name);
+  if(points.length<2){
+    area.innerHTML=`<div class="chart-title">${name}</div><div class="chart-empty">Not enough data yet.<br>Log weight for this exercise in at least 2 sessions to see a chart.</div>`;
+    return;
+  }
+  const w=320,h=160,pad=28;
+  const weights=points.map(p=>p.weight);
+  const minW=Math.min(...weights), maxW=Math.max(...weights);
+  const range=(maxW-minW)||1;
+  const stepX=points.length>1?(w-pad*2)/(points.length-1):0;
+  const coords=points.map((p,i)=>{
+    const x=pad+i*stepX;
+    const y=h-pad-((p.weight-minW)/range)*(h-pad*2);
+    return {x,y,...p};
+  });
+  const pathD=coords.map((c,i)=>(i===0?'M':'L')+c.x.toFixed(1)+','+c.y.toFixed(1)).join(' ');
+  const areaD=pathD+` L${coords[coords.length-1].x.toFixed(1)},${h-pad} L${coords[0].x.toFixed(1)},${h-pad} Z`;
+  const dots=coords.map(c=>`<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="3.5" fill="var(--accent2)"/>`).join('');
+  const first=points[0].weight, last=points[points.length-1].weight;
+  const delta=(last-first);
+  const deltaStr=(delta>=0?'+':'')+delta.toFixed(1)+'kg';
+  area.innerHTML=`
+    <div class="chart-title">${name}</div>
+    <svg viewBox="0 0 ${w} ${h}" class="chart-svg" preserveAspectRatio="none">
+      <path d="${areaD}" fill="rgba(124,111,205,0.08)" stroke="none"/>
+      <path d="${pathD}" fill="none" stroke="var(--accent2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      ${dots}
+    </svg>
+    <div class="chart-meta-row">
+      <span>Start: ${first}kg</span>
+      <span>Now: ${last}kg</span>
+      <span class="${delta>=0?'chart-up':'chart-down'}">${deltaStr}</span>
+    </div>`;
 }
 
 // ── HISTORY ──────────────────────────────────────────
@@ -1294,10 +1309,9 @@ function buildBackupPage() {
 
 function getFullBackup() {
   return JSON.stringify({
-    version: 1,
+    version: 2,
     exported: new Date().toISOString(),
     history,
-    habitData,
     questData,
     customPlan,
     liveData,
@@ -1348,7 +1362,6 @@ function importBackup(event) {
       if (!data.version || !data.history) { showToast('Invalid backup file'); return; }
       if (!confirm('This will replace ALL your current data with the backup. Are you sure?')) return;
       history = data.history || [];
-      habitData = data.habitData || {};
       questData = data.questData || {};
       customPlan = data.customPlan || null;
       liveData = data.liveData || {};
@@ -1357,6 +1370,7 @@ function importBackup(event) {
       buildDayStrip();
       buildExercises();
       buildProgress();
+      buildLastWorkout();
       buildBackupPage();
       showToast('Data restored successfully!');
     } catch(err) {
@@ -1369,13 +1383,14 @@ function importBackup(event) {
 
 function confirmClearData() {
   if (!confirm('Delete ALL data? This cannot be undone. Export a backup first!')) return;
-  history = []; habitData = {}; questData = {}; liveData = {}; customPlan = null;
+  history = []; questData = {}; liveData = {}; customPlan = null;
   localStorage.clear();
   save();
   buildHomePage();
   buildDayStrip();
   buildExercises();
   buildProgress();
+  buildLastWorkout();
   buildBackupPage();
   showToast('All data cleared');
 }
@@ -1389,9 +1404,9 @@ function showPage(page,btn){
   document.getElementById('log-bottom').style.display=page==='log'?'block':'none';
   document.getElementById('edit-bottom').style.display=page==='edit'?'block':'none';
   if(page==='home')buildHomePage();
+  if(page==='last')buildLastWorkout();
   if(page==='history')buildHistory();
   if(page==='progress')buildProgress();
-  if(page==='habits'){buildHabits();buildQuests();}
   if(page==='edit'){if(!editDraft)editDraft=JSON.parse(JSON.stringify(getActivePlan()));buildEditDayTabs();buildEditExercises();}
   if(page==='backup')buildBackupPage();
 }
@@ -1408,7 +1423,8 @@ function init(){
   buildDayStrip();
   buildExercises();
   buildProgress();
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  buildLastWorkout();
+  if('serviceWorker' in navigator && navigator.serviceWorker && navigator.serviceWorker.register)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 }
 
 init();
