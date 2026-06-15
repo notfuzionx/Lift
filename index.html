@@ -122,14 +122,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM San
 .ex-card.open .ex-chevron{transform:rotate(180deg)}
 .ex-body{display:none;padding:0 14px 14px 18px}
 .ex-card.open .ex-body{display:block}
-.set-cols{display:grid;grid-template-columns:26px 1fr 1fr 42px 34px;gap:6px;align-items:center;margin-bottom:4px}
+.set-cols{display:grid;grid-template-columns:26px 1fr 1fr 46px 34px;gap:6px;align-items:center;margin-bottom:4px}
 .set-col-label{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;text-align:center;letter-spacing:.3px}
-.set-row{display:grid;grid-template-columns:26px 1fr 1fr 42px 34px;gap:6px;align-items:center;padding:5px 0;border-top:1px solid var(--border)}
+.set-row{display:grid;grid-template-columns:26px 1fr 1fr 46px 34px;gap:6px;align-items:center;padding:5px 0;border-top:1px solid var(--border)}
 .set-num{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
 .set-input{background:var(--bg4);border:1px solid var(--border);border-radius:9px;padding:7px 5px;font-size:14px;font-weight:500;font-family:'DM Mono',monospace;color:var(--text);text-align:center;width:100%;-webkit-appearance:none;transition:border-color .15s}
 .set-input:focus{outline:none;border-color:var(--accent)}
 .set-input::placeholder{color:var(--text3);font-size:11px}
-.set-range{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;text-align:center;line-height:1.3}
+.rest-input{background:var(--bg4);border:1px solid var(--border);border-radius:9px;padding:7px 3px;font-size:13px;font-weight:500;font-family:'DM Mono',monospace;color:var(--text2);text-align:center;width:100%;-webkit-appearance:none}
+.rest-input:focus{outline:none;border-color:var(--accent)}
+.rest-input::placeholder{color:var(--text3);font-size:10px}
 .set-check{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
 .set-check.done{background:var(--green);border-color:var(--green)}
 .set-check svg{width:13px;height:13px;stroke:#000;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
@@ -581,48 +583,48 @@ function buildQuote() {
 // ── WORKOUT DATA ─────────────────────────────────────
 const DAYS = [
   {id:'pushA',label:'Mon · Push A',exercises:[
-    {name:'Incline Dumbbell Press',sets:3,range:'6-10',goal:true},
-    {name:'Machine Chest Press',sets:2,range:'8-12'},
-    {name:'Cable Fly',sets:2,range:'12-15'},
-    {name:'Standing Barbell OHP',sets:4,range:'6-10',goal:true},
-    {name:'Dumbbell Lateral Raise',sets:4,range:'12-20',goal:true},
-    {name:'Overhead Tricep Extension',sets:3,range:'10-15'},
-    {name:'Tricep Pushdown',sets:3,range:'10-15'}
+    {name:'Incline Dumbbell Press',sets:3,range:'6-10',goal:true,restTime:120},
+    {name:'Machine Chest Press',sets:2,range:'8-12',restTime:75},
+    {name:'Cable Fly',sets:2,range:'12-15',restTime:60},
+    {name:'Standing Barbell OHP',sets:4,range:'6-10',goal:true,restTime:120},
+    {name:'Dumbbell Lateral Raise',sets:4,range:'12-20',goal:true,restTime:60},
+    {name:'Overhead Tricep Extension',sets:3,range:'10-15',restTime:60},
+    {name:'Tricep Pushdown',sets:3,range:'10-15',restTime:60}
   ]},
   {id:'pullA',label:'Tue · Pull A',exercises:[
-    {name:'Lat Pulldown',sets:4,range:'8-12',goal:true},
-    {name:'Cable Row',sets:3,range:'8-12'},
-    {name:'Face Pulls',sets:3,range:'15-20'},
-    {name:'Preacher Curl',sets:3,range:'8-12'},
-    {name:'Hammer Curl',sets:3,range:'10-15'}
+    {name:'Lat Pulldown',sets:4,range:'8-12',goal:true,restTime:90},
+    {name:'Cable Row',sets:3,range:'8-12',restTime:90},
+    {name:'Face Pulls',sets:3,range:'15-20',restTime:60},
+    {name:'Preacher Curl',sets:3,range:'8-12',restTime:60},
+    {name:'Hammer Curl',sets:3,range:'10-15',restTime:60}
   ]},
   {id:'legs',label:'Wed · Legs (Quad)',exercises:[
-    {name:'Leg Press',sets:4,range:'8-12',goal:true},
-    {name:'Leg Extension',sets:3,range:'12-15'},
-    {name:'Leg Curl',sets:3,range:'10-15'},
-    {name:'Standing Calf Raise',sets:4,range:'10-20'},
-    {name:'Hanging Leg Raise',sets:3,range:'10-15'}
+    {name:'Leg Press',sets:4,range:'8-12',goal:true,restTime:120},
+    {name:'Leg Extension',sets:3,range:'12-15',restTime:75},
+    {name:'Leg Curl',sets:3,range:'10-15',restTime:75},
+    {name:'Standing Calf Raise',sets:4,range:'10-20',restTime:60},
+    {name:'Hanging Leg Raise',sets:3,range:'10-15',restTime:60}
   ]},
   {id:'rest',label:'Thu · Rest',exercises:[
     {name:'Rest day',sets:0,range:'',rest:true}
   ]},
   {id:'upper',label:'Fri · Upper',exercises:[
-    {name:'Incline Bench Press',sets:3,range:'6-10',goal:true},
-    {name:'Pull-Ups',sets:3,range:'6-10'},
-    {name:'Seated Cable Row',sets:3,range:'8-12'},
-    {name:'Standing Barbell OHP',sets:3,range:'5-8',goal:true},
-    {name:'Dumbbell Lateral Raise',sets:3,range:'12-20',goal:true},
-    {name:'Face Pulls',sets:3,range:'15-20'},
-    {name:'Preacher Curl',sets:3,range:'8-12'},
-    {name:'Tricep Pushdown',sets:3,range:'10-15'}
+    {name:'Incline Bench Press',sets:3,range:'6-10',goal:true,restTime:120},
+    {name:'Pull-Ups',sets:3,range:'6-10',restTime:90},
+    {name:'Seated Cable Row',sets:3,range:'8-12',restTime:90},
+    {name:'Standing Barbell OHP',sets:3,range:'5-8',goal:true,restTime:120},
+    {name:'Dumbbell Lateral Raise',sets:3,range:'12-20',goal:true,restTime:60},
+    {name:'Face Pulls',sets:3,range:'15-20',restTime:60},
+    {name:'Preacher Curl',sets:3,range:'8-12',restTime:60},
+    {name:'Tricep Pushdown',sets:3,range:'10-15',restTime:60}
   ]},
   {id:'lower',label:'Sat · Lower (Glute)',exercises:[
-    {name:'Romanian Deadlift',sets:4,range:'6-10',goal:true},
-    {name:'Hip Thrust',sets:3,range:'8-12'},
-    {name:'Seated Leg Curl',sets:3,range:'10-15'},
-    {name:'Hip Abduction Machine',sets:3,range:'15-20'},
-    {name:'Standing Calf Raise',sets:4,range:'10-20'},
-    {name:'Cable Crunch',sets:3,range:'12-20'}
+    {name:'Romanian Deadlift',sets:4,range:'6-10',goal:true,restTime:120},
+    {name:'Hip Thrust',sets:3,range:'8-12',restTime:90},
+    {name:'Seated Leg Curl',sets:3,range:'10-15',restTime:75},
+    {name:'Hip Abduction Machine',sets:3,range:'15-20',restTime:60},
+    {name:'Standing Calf Raise',sets:4,range:'10-20',restTime:60},
+    {name:'Cable Crunch',sets:3,range:'12-20',restTime:60}
   ]}
 ];
 
@@ -1001,17 +1003,18 @@ function buildExercises() {
     head.onclick=()=>card.classList.toggle('open');
     const body=document.createElement('div'); body.className='ex-body';
     const colHead=document.createElement('div'); colHead.className='set-cols';
-    colHead.innerHTML=`<span class="set-col-label">Set</span><span class="set-col-label">kg</span><span class="set-col-label">Reps</span><span class="set-col-label">Target</span><span></span>`;
+    colHead.innerHTML=`<span class="set-col-label">Set</span><span class="set-col-label">kg</span><span class="set-col-label">Reps</span><span class="set-col-label">Rest</span><span></span>`;
     body.appendChild(colHead);
     for(let si=0;si<ex.sets;si++){
-      const wKey=key(currentDay,ei,si,'w'),rKey=key(currentDay,ei,si,'r'),cKey=key(currentDay,ei,si,'c');
-      const wVal=liveData[wKey]||'',rVal=liveData[rKey]||'',done=!!liveData[cKey];
+      const wKey=key(currentDay,ei,si,'w'),rKey=key(currentDay,ei,si,'r'),cKey=key(currentDay,ei,si,'c'),restKey=key(currentDay,ei,si,'rt');
+      const wVal=liveData[wKey]||'',rVal=liveData[rKey]||'',done=!!liveData[cKey],restVal=liveData[restKey]||'';
       const prevW=lastSets&&lastSets[si]?lastSets[si].weight||'':'';
+      const prevR=lastSets&&lastSets[si]?lastSets[si].reps||'':'';
       const row=document.createElement('div'); row.className='set-row';
-      row.innerHTML=`<span class="set-num">${si+1}</span><input class="set-input" type="number" step="0.5" placeholder="${prevW||'kg'}" value="${wVal}" data-key="${wKey}" oninput="storeInput(this)"><input class="set-input" type="number" placeholder="reps" value="${rVal}" data-key="${rKey}" oninput="storeInput(this)"><span class="set-range">${ex.range}</span><button class="set-check${done?' done':''}" data-key="${cKey}" onclick="toggleCheck(this,${ei})"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>`;
+      row.innerHTML=`<span class="set-num">${si+1}</span><input class="set-input" type="number" step="0.5" placeholder="${prevW||'kg'}" value="${wVal}" data-key="${wKey}" oninput="storeInput(this)"><input class="set-input" type="number" placeholder="${prevR||'reps'}" value="${rVal}" data-key="${rKey}" oninput="storeInput(this)"><input class="rest-input" type="number" step="0.5" placeholder="min" value="${restVal}" data-key="${restKey}" oninput="storeInput(this)"><button class="set-check${done?' done':''}" data-key="${cKey}" onclick="toggleCheck(this,${ei})"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>`;
       body.appendChild(row);
     }
-    if(lastSets){const note=document.createElement('div');note.className='prev-note';note.textContent='↑ Placeholders = last session weights';body.appendChild(note);}
+    if(lastSets){const note=document.createElement('div');note.className='prev-note';note.textContent='↑ Placeholders = last session weights & reps';body.appendChild(note);}
     card.appendChild(head); card.appendChild(body); container.appendChild(card);
   });
 }
@@ -1033,7 +1036,7 @@ function saveWorkout() {
   if(day.exercises.length===1&&day.exercises[0].rest){showToast("It's a rest day! 😴");return;}
   const exercises=day.exercises.map((ex,ei)=>{
     const sets=[];
-    for(let si=0;si<ex.sets;si++){sets.push({weight:liveData[key(currentDay,ei,si,'w')]||null,reps:liveData[key(currentDay,ei,si,'r')]||null,done:!!liveData[key(currentDay,ei,si,'c')]});}
+    for(let si=0;si<ex.sets;si++){sets.push({weight:liveData[key(currentDay,ei,si,'w')]||null,reps:liveData[key(currentDay,ei,si,'r')]||null,rest:liveData[key(currentDay,ei,si,'rt')]||null,done:!!liveData[key(currentDay,ei,si,'c')]});}
     return{name:ex.name,sets};
   });
   const totalSets=exercises.reduce((a,e)=>a+e.sets.length,0);
@@ -1041,7 +1044,7 @@ function saveWorkout() {
   const xpBefore=calcTotalXP();
   history.unshift({ts:Date.now(),date:new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}),dayId:currentDay,dayLabel:day.label,exercises,doneSets,totalSets});
   if(history.length>500)history=history.slice(0,500);
-  day.exercises.forEach((ex,ei)=>{for(let si=0;si<ex.sets;si++){['w','r','c'].forEach(f=>delete liveData[key(currentDay,ei,si,f)]);} });
+  day.exercises.forEach((ex,ei)=>{for(let si=0;si<ex.sets;si++){['w','r','c','rt'].forEach(f=>delete liveData[key(currentDay,ei,si,f)]);} });
   save();
   const xpAfter=calcTotalXP();
   const rankBefore=getRank(xpBefore), rankAfter=getRank(xpAfter);
@@ -1078,7 +1081,8 @@ function buildLastWorkout() {
     ex.sets.forEach((s,i)=>{
       const w=s.weight?`${s.weight}kg`:'—';
       const r=s.reps?`${s.reps} reps`:'—';
-      html+=`<div class="last-set-row"><span>Set ${i+1}</span><span class="last-set-val">${w} × ${r}</span><span class="${s.done?'last-set-check':'last-set-pending'}">${s.done?'✓':'○'}</span></div>`;
+      const rest=s.rest?` · rest ${s.rest}min`:'';
+      html+=`<div class="last-set-row"><span>Set ${i+1}</span><span class="last-set-val">${w} × ${r}${rest}</span><span class="${s.done?'last-set-check':'last-set-pending'}">${s.done?'✓':'○'}</span></div>`;
     });
     html+=`</div>`;
   });
@@ -1198,7 +1202,7 @@ function toggleHistDetail(i){const el=document.getElementById(`hd-${i}`);if(el)e
 let exportIndex=null;
 function openExportModal(idx){exportIndex=idx;const h=idx!==null?history[idx]:history[0];document.getElementById('export-modal-sub').textContent=h?`${h.dayLabel} · ${h.date}`:'No workout saved yet';document.getElementById('export-modal').classList.add('open');}
 function closeExportModal(e){if(e&&e.target!==document.getElementById('export-modal'))return;document.getElementById('export-modal').classList.remove('open');}
-function formatWorkout(h){if(!h)return null;let t='════════════════════════════\n';t+=`  LIFTS — ${h.dayLabel.toUpperCase()}\n  ${h.date}\n`;t+='════════════════════════════\n\n';(h.exercises||[]).forEach(ex=>{t+=`${ex.name}\n`;ex.sets.forEach((s,i)=>{t+=`  Set ${i+1}: ${s.weight?s.weight+'kg':'—'}  ×  ${s.reps?s.reps+' reps':'—'}  ${s.done?'✓':'○'}\n`;});t+='\n';});t+=`Sets completed: ${h.doneSets}/${h.totalSets} (${Math.round((h.doneSets/h.totalSets)*100)}%)\n════════════════════════════\n`;return t;}
+function formatWorkout(h){if(!h)return null;let t='════════════════════════════\n';t+=`  LIFTS — ${h.dayLabel.toUpperCase()}\n  ${h.date}\n`;t+='════════════════════════════\n\n';(h.exercises||[]).forEach(ex=>{t+=`${ex.name}\n`;ex.sets.forEach((s,i)=>{t+=`  Set ${i+1}: ${s.weight?s.weight+'kg':'—'}  ×  ${s.reps?s.reps+' reps':'—'}${s.rest?'  (rest '+s.rest+'min)':''}  ${s.done?'✓':'○'}\n`;});t+='\n';});t+=`Sets completed: ${h.doneSets}/${h.totalSets} (${Math.round((h.doneSets/h.totalSets)*100)}%)\n════════════════════════════\n`;return t;}
 function formatAllHistory(){if(!history.length)return null;let t=`LIFTS — FULL HISTORY\nExported ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}\nTotal sessions: ${history.length}\n\n`;history.forEach(h=>{t+=formatWorkout(h)+'\n\n';});return t;}
 function downloadTxt(text,filename){const blob=new Blob([text],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1000);}
 function exportTxtFile(){const h=exportIndex!==null?history[exportIndex]:history[0];if(!h){showToast('No workout to export');return;}downloadTxt(formatWorkout(h),`Lifts-${h.dayId}-${h.date.replace(/ /g,'-')}.txt`);closeExportModal();showToast('Saved to Files!');}
@@ -1248,7 +1252,7 @@ function toggleRestDay(btn){
   const isRest=d.exercises.length===1&&d.exercises[0].rest;
   if(isRest){
     // Switch to workout day
-    d.exercises=[{name:'New exercise',sets:3,range:'8–12',goal:false}];
+    d.exercises=[{name:'New exercise',sets:3,range:'8–12',goal:false,restTime:90}];
   } else {
     // Switch to rest day
     d.exercises=[{name:'Rest day',sets:0,range:'',rest:true}];
@@ -1261,7 +1265,7 @@ function addDay(){
   if(editDraft.length>=7){showToast('Max 7 days reached');return;}
   const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const newId='day'+Date.now();
-  editDraft.push({id:newId,label:dayNames[editDraft.length]||'Day '+(editDraft.length+1),exercises:[{name:'New exercise',sets:3,range:'8–12',goal:false}]});
+  editDraft.push({id:newId,label:dayNames[editDraft.length]||'Day '+(editDraft.length+1),exercises:[{name:'New exercise',sets:3,range:'8–12',goal:false,restTime:90}]});
   editDayId=newId;
   buildEditDayTabs();
   buildEditExercises();
@@ -1297,7 +1301,7 @@ function updateExField(dayId,ei,field,value){
 function toggleGoal(dayId,ei,btn){if(!editDraft)return;const d=editDraft.find(d=>d.id===dayId);if(!d)return;d.exercises[ei].goal=!d.exercises[ei].goal;btn.classList.toggle('on',d.exercises[ei].goal);}
 function deleteEx(dayId,ei){if(!editDraft)return;const d=editDraft.find(d=>d.id===dayId);if(!d)return;if(d.exercises.length<=1){showToast('Need at least 1 exercise');return;}d.exercises.splice(ei,1);buildEditExercises();}
 function moveEx(ei,dir){if(!editDraft)return;const d=editDraft.find(d=>d.id===editDayId);if(!d)return;const ni=ei+dir;if(ni<0||ni>=d.exercises.length)return;[d.exercises[ei],d.exercises[ni]]=[d.exercises[ni],d.exercises[ei]];buildEditExercises();}
-function addExercise(){if(!editDraft)return;const d=editDraft.find(d=>d.id===editDayId);if(!d)return;d.exercises.push({name:'New exercise',sets:3,range:'8–12',goal:false});buildEditExercises();setTimeout(()=>{const cards=document.querySelectorAll('.edit-ex-card');if(cards.length){cards[cards.length-1].classList.add('open');cards[cards.length-1].scrollIntoView({behavior:'smooth'});}},50);}
+function addExercise(){if(!editDraft)return;const d=editDraft.find(d=>d.id===editDayId);if(!d)return;d.exercises.push({name:'New exercise',sets:3,range:'8–12',goal:false,restTime:90});buildEditExercises();setTimeout(()=>{const cards=document.querySelectorAll('.edit-ex-card');if(cards.length){cards[cards.length-1].classList.add('open');cards[cards.length-1].scrollIntoView({behavior:'smooth'});}},50);}
 function saveEdits(){if(!editDraft)return;customPlan=JSON.parse(JSON.stringify(editDraft));editDraft=null;save();buildDayStrip();buildExercises();buildProgress();showToast('Plan saved!');}
 
 // ── BACKUP & RESTORE ─────────────────────────────────
